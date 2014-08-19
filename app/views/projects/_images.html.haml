@@ -4,7 +4,8 @@
       - @images.each do |image|
         %div
           %p
-            = link_to(image_tag(image[:url]),image[:link])
+            %a.gallery{href:"\##{image[:name].chomp(File.extname(image[:name]))}"}
+              = image_tag(image[:url])
     - if user_signed_in? and current_user.id == @project.user.id
       %div
         = form_tag file_upload_project_path(@project), multipart: true do
@@ -27,4 +28,14 @@
         %p You'll need to sign in to work on these cool projects!
         %form{action: "/users/sign_in"}
           %input{type: "submit", value: "Sign in!"}
+
+
+
+%div#slideshow{style: "display: none"}
+  - @images.each do |image|
+    %div.slide{id: "#{image[:name].chomp(File.extname(image[:name]))}"}
+      %div.image
+        = image_tag(image[:url])
+
+
 

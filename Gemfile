@@ -14,6 +14,7 @@ gem 'sqlite3'
 gem 'mysql2'
 gem 'haml'
 gem 'grit'
+gem 'colorbox-rails'
 gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
 gem 'escape'
 gem 'jquery-rails'

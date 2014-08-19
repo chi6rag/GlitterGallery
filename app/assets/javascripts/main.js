@@ -17,12 +17,20 @@ $("document").ready( function(){
 	});
 });
 
+//  Enable sidr
+
 $("document").ready(function() {
-$('#responsive-menu-button').sidr({
-name: 'sidr-main',
-source: '#navigation'
+	$('#responsive-menu-button').sidr({
+	name: 'sidr-main',
+	source: '#navigation'
+	});
 });
 
+// Initialize colorbox for the slideshows
+$("document").ready(function() {
+	$('a.gallery').colorbox({rel:'gallery', transition:"none", width:"100%", height:"100%", inline:true});
 });
+
+
 
 
