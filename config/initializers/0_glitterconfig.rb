@@ -3,11 +3,15 @@
 # ImageMagick geometry to use for thumbnail generation
 # defaults to 100 px width
 # http://www.imagemagick.org/script/command-line-processing.php#geometry
-Glitter::Application.config.thumbnail_geometry="150x110!"
+Glitter::Application.config.thumbnail_geometry=[50,50]
 
 # (gr)Avatar options
 ## path to default avatar - should start with slash
-Glitter::Application.config.default_avatar='/happypanda.png'
+if Rails.env.development?
+    Glitter::Application.config.default_avatar='https://raw.githubusercontent.com/glittergallery/GlitterGallery/master/public/happypanda.png'
+else
+    Glitter::Application.config.default_avatar='/happypanda.png'
+end    
 ## size of gravatar to ask for - one dimension in pixels
 ## (gravatars are square :))
 Glitter::Application.config.gravatar_size='48'

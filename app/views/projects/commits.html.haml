@@ -7,38 +7,25 @@
 
 
   %article.project{ data: "log" }
-    %header
-      %h1.generated
-        = avatar @project.user.email
-        %p
-          = link_to @user.username, "/#{@user.username}"
-          = "/"
-          %span 
-            = link_to @project.name, "/#{@user.username}/#{@project.name}"
-      %h2 
-        - if @project.id == @project.parent
-          %span.badge.author
-            PARENT
-        - else
-          Forked from parent/project
-          
+    = render 'project_header'
     = render 'project_toolbar'
     = render 'shared/messages'
 
-  
+
     - if @project.private and params[:xid] != @project.uniqueurl
       = link_to 'Unique link', @project.urlbase
-  
+
     %section
-      - unless @commits.empty?
+      - if @commits
         %div.feed
           - @commits.each do |commit|
             %div
-              %header 
-                = commit.author[:name]             
+              %header
+                = commit.author[:name]
               %article
                 %p
-                  = link_to commit.message, File.join(@project.urlbase, 'commit', commit.tree_id)
+                  %img(src="#{@project.thumbnail_for(commit.oid,false)}")
+                  = link_to commit.message, commit_user_project_path(@project.user,@project,commit.oid)
               %footer
                 %p
                   = distance_of_time_in_words_to_now Time.at(commit.epoch_time)

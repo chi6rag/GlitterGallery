@@ -6,29 +6,15 @@
     = @project.name.titleize
 
   %article.project{ data: "update" }
-    %header
-      %h1.generated
-        = avatar @project.user.email
-        %p
-          = link_to @user.username, "/#{@user.username}"
-          = "/"
-          %span 
-            = link_to @project.name, "/#{@user.username}/#{@project.name}"
-      %h2 
-        - if @project.id == @project.parent
-          %span.badge.author
-            PARENT
-        - else
-          Forked from parent/project
-
+    = render 'project_header'
     = render 'project_toolbar'
     = render 'shared/messages'
 
     %section
       %div
-        = form_tag file_update_project_path(@project), multipart: true do
-          = file_field_tag "file" 
+        = form_tag file_update_user_project_path(@project.user,@project), multipart: true do
+          = file_field_tag "file"
           = text_field_tag "message","commit message"
           = hidden_field_tag "image_name", params[:image_name]
-          = submit_tag 
+          = submit_tag
 
