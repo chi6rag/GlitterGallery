@@ -1,16 +1,27 @@
-%article
+- content_for :title do
+  Notifications
+
+%article.user{ data: 'settings' }
   %header
-    %h1 Notifications
-    %h2 What's been going on in GlitterGallery
-  %content
+    %h1 My Notifications
+    %h2
+      = precede '@' do
+        = current_user.username
+
+
+  = render 'users/user_toolbar'
+  = render 'shared/messages'
+
+  %section
     %ul
       - if @unseennotifications.empty?
         %p No notifications!
       - else
-        - for notification in @unseennotifications
+        - @unseennotifications.each do |notification|
           %li
-          -if notification.action == 3 and notification.objectname == current_user.username
-            = link_to(notification.actor.username + notification.messageverb + "you",notification_path(notification))
-          -else
-            = link_to(notification.actor.username + notification.messageverb + notification.objectname,notification_path(notification))
+          - if notification.action == 3 && notification.objectname == current_user.username
+            = link_to(notif_string(notification) + 'you', notification_path(notification))
+          - else
+            = link_to(notif_string(notification) + notification.objectname,
+              notification_path(notification))
 

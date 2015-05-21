@@ -1,31 +1,34 @@
 - content_for :title do
   = @user.username.titleize
 
-%article.user{ data: "userpage"}
+%article.user
   %header
     %h1
       = avatar @user.email
       = @user.username
     %h2
-      = '@' + @user.username
+      = precede '@' do
+        = @user.username
 
   = render 'user_toolbar'
   = render 'shared/messages'
 
   %section.bio
     %div
-      %img{src: "/usercover.jpg"}
+      %img{ src: '/usercover.jpg' }
 
   %section.social#social
     = render 'social'
 
   %section
     .feed
-      %div
+      #activity
         %article
           %p
             = link_to @user.username, (File.join '/', @user.username)
             joined
-            %a{href: "/"} GlitterGallery
+            %a{ href: '/' } GlitterGallery
             = distance_of_time_in_words_to_now @user.created_at
             ago.
+      #followers{ style: 'display: none' }
+      #followings{ style: 'display: none' }
